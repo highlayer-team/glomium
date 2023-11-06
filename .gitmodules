@@ -1,0 +1,2 @@
+[submodule "duktape"]
+	url = github.com:rareweave/duktape.git
