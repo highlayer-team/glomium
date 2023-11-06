@@ -1,5 +1,5 @@
 {
-  "name": "duktape-node",
+  "name": "glomium",
   "version": "1.0.0",
   "description": "Duktape bindings for node.js",
   "main": "index.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/angrymouse/duktape-node.git"
+    "url": "git+https://github.com/rareweave/glomium"
   },
   "author": "Angrymouse <nik@hns.is>",
   "license": "Unlicense",
   "gypfile": true,
   "bugs": {
-    "url": "https://github.com/angrymouse/duktape-node/issues"
+    "url": "https://github.com/rareweave/glomiumissues"
   },
-  "homepage": "https://github.com/angrymouse/duktape-node#readme",
+  "homepage": "https://github.com/rareweave/glomium#readme",
   "dependencies": {
     "nan": "^2.18.0",
     "node-addon-api": "^7.0.0"

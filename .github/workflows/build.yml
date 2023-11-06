@@ -1,0 +1,47 @@
+name: Build
+
+on:
+  create:
+    tags:
+      - v*
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: latest
+
+      - uses: actions/checkout@v3
+
+      - name: Cache .pnpm-store
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-node${{ matrix.node }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Install Node deps
+        run: |
+          npm i -g pnpm node-gyp
+
+      - run: pnpm install
+        env:
+          NO_PREBUILD: true
+
+      - name: Build Addon
+        run: node-gyp rebuild
+
+      - name: Package
+        run: node script/prebuild.js pack
+
+      - name: Upload prebuilt binary
+        uses: softprops/action-gh-release@v1
+        with:
+          files: prebuilds/*
+          token: ${{ secrets.GH_TOKEN }}
