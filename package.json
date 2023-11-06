@@ -1,0 +1,25 @@
+{
+  "name": "duktape-node",
+  "version": "1.0.0",
+  "description": "Duktape bindings for node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "node-gyp rebuild"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angrymouse/duktape-node.git"
+  },
+  "author": "Angrymouse <nik@hns.is>",
+  "license": "Unlicense",
+  "gypfile": true,
+  "bugs": {
+    "url": "https://github.com/angrymouse/duktape-node/issues"
+  },
+  "homepage": "https://github.com/angrymouse/duktape-node#readme",
+  "dependencies": {
+    "nan": "^2.18.0",
+    "node-addon-api": "^7.0.0"
+  }
+}
