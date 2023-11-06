@@ -1,2 +1,3 @@
 [submodule "duktape"]
 	url = https://github.com/rareweave/duktape
+	path = duktape
