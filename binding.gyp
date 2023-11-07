@@ -15,8 +15,10 @@
       ],
       "cflags": [
         "-std=c++11",
+        "-Wno-implicit-function-declaration",
         "-x c++"
       ],
+      "cflags_cc":["-Wno-implicit-function-declaration"],
       "conditions": [
         ["OS=='win'", {
           "cflags!": ["/EHs", "/EHc"],
