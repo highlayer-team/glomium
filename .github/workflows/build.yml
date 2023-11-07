@@ -33,7 +33,8 @@ jobs:
       - run: pnpm install
         env:
           NO_PREBUILD: true
-
+      - name: Sync duktape subrepo
+        run: git submodule update --init --recursive
       - name: Build Addon
         run: node-gyp rebuild
 
