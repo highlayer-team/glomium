@@ -39,7 +39,7 @@ jobs:
         run: node-gyp rebuild
 
       - name: Package
-        run: node script/prebuild.js pack
+        run: node scripts/prebuild.js pack
 
       - name: Upload prebuilt binary
         uses: softprops/action-gh-release@v1
