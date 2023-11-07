@@ -39,7 +39,6 @@ napi_value duk_to_napi(napi_env env, duk_context *ctx, duk_idx_t idx)
     case DUK_TYPE_OBJECT:
         if (duk_is_array(ctx, idx))
         {
-            // Handle array case here
             duk_size_t length = duk_get_length(ctx, idx);
             napi_create_array_with_length(env, length, &result);
             for (duk_size_t i = 0; i < length; i++)
@@ -201,7 +200,7 @@ duk_ret_t napi_function_wrapper(duk_context *ctx)
 
     napi_to_duk(funcContext.env, ctx, result);
 
-    return 1; // Return 1 as number of results, as duktape allows for multiple values returned from function, but for napi it will always be 1
+    return 1;
 }
 
 napi_value duk_function_wrapper(napi_env env, napi_callback_info info)

@@ -78,21 +78,18 @@ napi_value set_global(napi_env env, napi_callback_info info)
         return nullptr;
     }
 
-    // Get Duktape context
+   
     duk_context *ctx;
     napi_get_value_external(env, args[0], (void **)&ctx);
 
-    // Get property name
     size_t strSize;
     napi_get_value_string_utf8(env, args[1], nullptr, 0, &strSize);
     std::vector<char> propName(strSize + 1);
     napi_get_value_string_utf8(env, args[1], propName.data(), strSize + 1, nullptr);
 
-    // Push value to Duktape stack and set it as a global property
     napi_to_duk(env, ctx, args[2]);
     duk_put_global_string(ctx, propName.data());
 
-    // Return undefined to Node.js
     napi_value undefined;
     napi_get_undefined(env, &undefined);
     return undefined;
@@ -109,24 +106,21 @@ napi_value get_global(napi_env env, napi_callback_info info)
         return nullptr;
     }
 
-    // Get Duktape context
+
     duk_context *ctx;
     napi_get_value_external(env, args[0], (void **)&ctx);
 
-    // Get property name
+
     size_t strSize;
     napi_get_value_string_utf8(env, args[1], nullptr, 0, &strSize);
     std::vector<char> propName(strSize + 1);
     napi_get_value_string_utf8(env, args[1], propName.data(), strSize + 1, nullptr);
 
-    // Get the global property from the Duktape stack
     duk_get_global_string(ctx, propName.data());
 
-    // Convert the Duktape value to a N-API value
 
     napi_value result= duk_to_napi(env, ctx, -1);
 
-    // Remove the retrieved value from the Duktape stack
     duk_pop(ctx);
 
     return result;
@@ -154,7 +148,7 @@ napi_value eval_string(napi_env env, napi_callback_info info)
 
     if (duk_peval_string(static_cast<duk_context *>(ctx), script) != 0)
     {
-        delete[] script; // Ensure script is deleted before throwing
+        delete[] script;
         if (duk_is_error(static_cast<duk_context *>(ctx), -1))
         {
             duk_get_prop_string(static_cast<duk_context *>(ctx), -1, "stack");
@@ -165,7 +159,7 @@ napi_value eval_string(napi_env env, napi_callback_info info)
         napi_get_undefined(env, &undefined);
         return undefined;
     }
-    delete[] script; // Ensure script is deleted
+    delete[] script; 
 
     napi_value result = duk_to_napi(env, static_cast<duk_context *>(ctx), -1);
     duk_pop(static_cast<duk_context *>(ctx));
