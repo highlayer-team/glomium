@@ -4,7 +4,7 @@
   "description": "Duktape bindings for node.js",
   "main": "index.js",
   "scripts": {
-    "install": "node script/prebuild.js install"
+    "install": "node scripts/prebuild.js install"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/rareweave/glomium#readme",
   "dependencies": {
     "nan": "^2.18.0",
-    "node-addon-api": "^7.0.0"
+    "node-addon-api": "^7.0.0",
+    "tar-fs": "^3.0.4"
   }
 }

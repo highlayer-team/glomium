@@ -4,7 +4,7 @@ const fs = require("fs");
 const { createBrotliCompress, createBrotliDecompress } = require("zlib");
 const { https } = require("follow-redirects");
 const tar = require("tar-fs");
-const packageJson = require("../../package.json");
+const packageJson = require("../package.json");
 
 const binary = "build/Release/duktape_bindings.node";
 
