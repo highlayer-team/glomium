@@ -1,4 +1,8 @@
+<center>
+
 # Glomium
+
+<img src="./glomium.svg" width="200" ></center>
 
 Glomium is a powerful JavaScript module that serves as the core for [Glome](https://github.com/rareweave/glome), a smart contract engine optimized for creating performant, scalable, and secure smart contracts on Arweave.
 By providing JavaScript bindings to the Duktape JS engine, Glomium enables the embedding and secure execution of JavaScript code within a Node.js environment (eval() but isolated), with custom resource constraints such as gas limits and memory costs.
@@ -80,7 +84,8 @@ Executes a string of JavaScript code within the Duktape execution context and re
 - **Parameters**
   - `code` _(string)_: The JavaScript code to execute.
 
-## Building 
+## Building
+
 You can build Glomium from source by executing following commands:
 
 ```bash
