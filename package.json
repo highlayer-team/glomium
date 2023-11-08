@@ -16,7 +16,7 @@
   "license": "Unlicense",
   "gypfile": true,
   "bugs": {
-    "url": "https://github.com/rareweave/glomiumissues"
+    "url": "https://github.com/rareweave/glomium/issues"
   },
   "homepage": "https://github.com/rareweave/glomium#readme",
   "dependencies": {
