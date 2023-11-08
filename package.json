@@ -1,6 +1,6 @@
 {
   "name": "glomium",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Duktape bindings for node.js",
   "main": "index.js",
   "scripts": {

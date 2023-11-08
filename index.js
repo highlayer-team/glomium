@@ -12,7 +12,7 @@ class Glomium {
         return this;
     }
     get(name) {
-        return duktapeBindings.getGlobal(this.context,name, value);
+        return duktapeBindings.getGlobal(this.context,name);
     }
     run(code) {
         return duktapeBindings.evalString(this.context,code);
