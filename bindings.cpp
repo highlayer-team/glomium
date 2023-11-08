@@ -20,6 +20,13 @@ void cleanup_context(napi_env env, void *finalize_data, void *finalize_hint)
     duk_destroy_heap(ctx);
 }
 
+void fatal_handler  (void *udata, const char *msg)
+{
+    HeapConfig *heapData = (HeapConfig *)udata;
+    napi_env env = (napi_env)heapData->napi_env;
+    napi_throw_error(env, nullptr, msg ? msg : "Duktape fatal error");
+};
+
 napi_value create_context(napi_env env, napi_callback_info info)
 {
     size_t argc = 1;
@@ -45,15 +52,17 @@ napi_value create_context(napi_env env, napi_callback_info info)
     gasData->gas_limit = gas_limit;
     gasData->gas_used = 0;
     gasData->mem_cost_per_byte = mem_cost_per_byte;
-    auto fatal_handler = [](void *udata, const char *msg)
-    {
-        napi_env env = static_cast<napi_env>(udata);
-        napi_throw_error(env, nullptr, msg ? msg : "Duktape fatal error");
-    };
-    duk_context *ctx = duk_create_heap(duk_gas_respecting_alloc_function, duk_gas_respecting_realloc_function, duk_gas_respecting_free_function, gasData, (duk_fatal_function)fatal_handler);
+
+    auto *heapConfig = new HeapConfig;
+    heapConfig->gasConfig = gasData;
+    heapConfig->napi_env = (void *)env;
+    heapConfig->fatal_function = fatal_handler;
+
+    duk_context *ctx = duk_create_heap(duk_gas_respecting_alloc_function, duk_gas_respecting_realloc_function, duk_gas_respecting_free_function, heapConfig, (duk_fatal_function)fatal_handler);
     if (!ctx)
     {
         delete gasData;
+        delete heapConfig;
         napi_throw_error(env, nullptr, "Failed to create Duktape context");
         return nullptr;
     }

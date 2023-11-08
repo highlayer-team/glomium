@@ -403,6 +403,18 @@
     "want_separate_host_toolset": 0,
     "nodedir": "C:\\Users\\Nikita\\AppData\\Local\\node-gyp\\Cache\\18.17.0",
     "standalone_static_library": 1,
-    "msbuild_path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\MSBuild\\Current\\Bin\\MSBuild.exe"
+    "msbuild_path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\MSBuild\\Current\\Bin\\MSBuild.exe",
+    "access": "public",
+    "cache": "C:\\Users\\Nikita\\AppData\\Local\\npm-cache",
+    "globalconfig": "C:\\Users\\Nikita\\AppData\\Roaming\\npm\\etc\\npmrc",
+    "global_prefix": "C:\\Users\\Nikita\\AppData\\Roaming\\npm",
+    "init_module": "C:\\Users\\Nikita\\.npm-init.js",
+    "local_prefix": "C:\\Projects\\duktape-node",
+    "metrics_registry": "https://registry.npmjs.org/",
+    "node_gyp": "C:\\Users\\Nikita\\AppData\\Roaming\\npm\\node_modules\\npm\\node_modules\\node-gyp\\bin\\node-gyp.js",
+    "prefix": "C:\\Users\\Nikita\\AppData\\Roaming\\npm",
+    "unsafe_perm": "true",
+    "userconfig": "C:\\Users\\Nikita\\.npmrc",
+    "user_agent": "npm/8.19.2 node/v18.17.0 win32 x64 workspaces/false"
   }
 }

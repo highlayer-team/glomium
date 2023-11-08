@@ -4,7 +4,9 @@
   "description": "Duktape bindings for node.js",
   "main": "index.js",
   "scripts": {
-    "install": "node scripts/prebuild.js install"
+    "install": "node scripts/prebuild.js install",
+    "build:duktape:win32":"cd duktape &&C:\\Python27\\python.exe tools/configure.py --output-directory src-new --source-directory src-input --config-metadata config --option-file config/sandbox_config.yaml&&cd ..",
+    "build:win32":"npm run build:duktape:win32&&node-gyp rebuild"
   },
   "repository": {
     "type": "git",
