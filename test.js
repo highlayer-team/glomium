@@ -23,3 +23,6 @@ const result = glomium.run(`
 `);
 
 console.log(result); // Should output 'Hello, world!'
+console.log(glomium.get("hello"))
+glomium.clearGlobal()
+console.log(glomium.get("hello"))

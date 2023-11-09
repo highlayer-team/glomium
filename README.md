@@ -84,6 +84,13 @@ Executes a string of JavaScript code within the Duktape execution context and re
 - **Parameters**
   - `code` _(string)_: The JavaScript code to execute.
 
+### `glomium.clear()`
+
+Fully resets all global variables of the VM, might be useful for VM reuse between contexts that shouldn't be tightly isolated (i.e same app but different task)
+
+- **Parameters**
+  Doesn't take parameters, returns undefined
+
 ## Building
 
 You can build Glomium from source by executing following commands:

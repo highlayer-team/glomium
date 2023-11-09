@@ -26,7 +26,25 @@ void fatal_handler  (void *udata, const char *msg)
     napi_env env = (napi_env)heapData->napi_env;
     napi_throw_error(env, nullptr, msg ? msg : "Duktape fatal error");
 };
+napi_value flush_global(napi_env env,napi_callback_info info){
+    size_t argc = 1;
+    napi_value args[1];
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
+    if (argc < 1)
+    {
+        napi_throw_type_error(env, nullptr, "Expected a context to flush");
+        return nullptr;
+    }
+
+    duk_context *ctx;
+    napi_get_value_external(env, args[0], (void **)&ctx);
+    duk_push_bare_object(ctx);
+    duk_set_global_object(ctx);
+     napi_value undefined;
+    napi_get_undefined(env, &undefined);
+    return undefined;
+}
 napi_value create_context(napi_env env, napi_callback_info info)
 {
     size_t argc = 1;
@@ -178,9 +196,11 @@ napi_value eval_string(napi_env env, napi_callback_info info)
 
 napi_value Init(napi_env env, napi_value exports)
 {
-    napi_value createContext, evalString, setGlobal, getGlobal;
+    napi_value createContext, evalString, setGlobal, getGlobal, flushGlobal;
     napi_create_function(env, nullptr, NAPI_AUTO_LENGTH, create_context, nullptr, &createContext);
     napi_set_named_property(env, exports, "createContext", createContext);
+    napi_create_function(env, nullptr, NAPI_AUTO_LENGTH, flush_global, nullptr, &flushGlobal);
+    napi_set_named_property(env, exports, "flushGlobal", flushGlobal);
 
     napi_create_function(env, nullptr, NAPI_AUTO_LENGTH, set_global, nullptr, &setGlobal);
     napi_set_named_property(env, exports, "setGlobal", setGlobal);

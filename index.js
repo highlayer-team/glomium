@@ -17,5 +17,8 @@ class Glomium {
     run(code) {
         return duktapeBindings.evalString(this.context,code);
     }
+    clear() {
+        return duktapeBindings.flushGlobal(this.context)
+    }
 }
 module.exports=Glomium
