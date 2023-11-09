@@ -20,5 +20,8 @@ class Glomium {
     clear() {
         return duktapeBindings.flushGlobal(this.context)
     }
+    setGas({gasLimit, memoryByteCost,gasUsed}) {
+        return duktapeBindings.setGas(this.context,{gasLimit:gasLimit,memCostPerByte:memoryByteCost,gasUsed:gasUsed})
+    }
 }
 module.exports=Glomium

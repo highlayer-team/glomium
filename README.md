@@ -91,6 +91,18 @@ Fully resets all global variables of the VM, might be useful for VM reuse betwee
 - **Parameters**
   Doesn't take parameters, returns undefined
 
+### `setGas(config)`
+
+Updates the gas configuration for the Duktape execution context associated with the current instance.
+
+This function sets new limits and costs associated with the Duktape context's resource consumption, commonly referred to as "gas" in the context of execution constraints and sandboxing.
+
+- **Parameters**
+  - `config` _(Object)_: An object containing the new gas configuration parameters.
+    - `gasLimit` _(number)_: The maximum amount of gas that can be consumed. Often represents the upper limit of computational steps or memory usage.
+    - `memoryByteCost` _(number)_: The cost per byte of memory used by the Duktape context, contributing to the total gas consumed.
+    - `gasUsed` _(number)_: The amount of gas already consumed. This can be set to initialize or reset the consumption counter.
+
 ## Building
 
 You can build Glomium from source by executing following commands:

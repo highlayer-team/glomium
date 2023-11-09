@@ -41,7 +41,13 @@ napi_value flush_global(napi_env env,napi_callback_info info){
     napi_get_value_external(env, args[0], (void **)&ctx);
     duk_push_bare_object(ctx);
     duk_set_global_object(ctx);
-     napi_value undefined;
+    duk_memory_functions *funcs;
+
+    duk_get_memory_functions(ctx, funcs);
+    HeapConfig *heapData = (HeapConfig *)funcs->udata;
+    GasData *gasData = heapData->gasConfig;
+    gasData->gas_used=0
+    napi_value undefined;
     napi_get_undefined(env, &undefined);
     return undefined;
 }
@@ -67,9 +73,9 @@ napi_value create_context(napi_env env, napi_callback_info info)
     napi_get_value_uint32(env, prop_value, &mem_cost_per_byte);
 
     auto *gasData = new GasData;
-    gasData->gas_limit = gas_limit;
+    gasData->gas_limit = 999999;//just a big enough value for Duktape to warm up
     gasData->gas_used = 0;
-    gasData->mem_cost_per_byte = mem_cost_per_byte;
+    gasData->mem_cost_per_byte = 0;
 
     auto *heapConfig = new HeapConfig;
     heapConfig->gasConfig = gasData;
@@ -87,10 +93,54 @@ napi_value create_context(napi_env env, napi_callback_info info)
 
     duk_push_bare_object(ctx);
     duk_set_global_object(ctx);
+    gasData->gas_limit = gas_limit;
+    gasData->mem_cost_per_byte = mem_cost_per_byte;
+    gasData->gas_used = 0; // we don't really want to count warmup as a used gas as it's not dependent on usercode
     napi_value externalCtx;
     napi_create_external(env, ctx, cleanup_context, nullptr, &externalCtx);
 
     return externalCtx;
+}
+napi_value setGas(napi_env env, napi_callback_info info)
+{
+    size_t argc = 2;
+    napi_value args[2], config_object;
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+
+    if (argc < 2)
+    {
+        napi_throw_type_error(env, nullptr, "Expected two arguments: context and configuration object");
+        return nullptr;
+    }
+
+    duk_context *ctx;
+    napi_get_value_external(env, args[0], (void **)&ctx);
+
+    config_object = args[1];
+    uint32_t gas_limit, mem_cost_per_byte, used_gas;
+    napi_value temp_value;
+
+    napi_get_named_property(env, config_object, "gasLimit", &temp_value);
+    napi_get_value_uint32(env, temp_value, &gas_limit);
+
+    napi_get_named_property(env, config_object, "memCostPerByte", &temp_value);
+    napi_get_value_uint32(env, temp_value, &mem_cost_per_byte);
+
+    napi_get_named_property(env, config_object, "usedGas", &temp_value);
+    napi_get_value_uint32(env, temp_value, &used_gas);
+
+    duk_memory_functions *funcs;
+    duk_get_memory_functions(ctx, &funcs);
+    HeapConfig *heapData = (HeapConfig *)funcs->udata;
+    GasData *gasData = heapData->gasConfig;
+
+    gasData->gas_limit = gas_limit;
+    gasData->mem_cost_per_byte = mem_cost_per_byte;
+    gasData->gas_used = used_gas;
+
+    napi_value undefined;
+    napi_get_undefined(env, &undefined);
+    return undefined;
 }
 
 napi_value set_global(napi_env env, napi_callback_info info)
@@ -196,11 +246,15 @@ napi_value eval_string(napi_env env, napi_callback_info info)
 
 napi_value Init(napi_env env, napi_value exports)
 {
-    napi_value createContext, evalString, setGlobal, getGlobal, flushGlobal;
+    napi_value createContext, evalString, setGlobal, getGlobal, flushGlobal,setGas;
     napi_create_function(env, nullptr, NAPI_AUTO_LENGTH, create_context, nullptr, &createContext);
     napi_set_named_property(env, exports, "createContext", createContext);
+
     napi_create_function(env, nullptr, NAPI_AUTO_LENGTH, flush_global, nullptr, &flushGlobal);
     napi_set_named_property(env, exports, "flushGlobal", flushGlobal);
+
+    napi_create_function(env, nullptr, NAPI_AUTO_LENGTH, set_gas, nullptr, &setGas);
+    napi_set_named_property(env, exports, "flushGlobal", setGas);
 
     napi_create_function(env, nullptr, NAPI_AUTO_LENGTH, set_global, nullptr, &setGlobal);
     napi_set_named_property(env, exports, "setGlobal", setGlobal);
