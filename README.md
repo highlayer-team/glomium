@@ -26,7 +26,7 @@ Below is a simple example on how to use Glomium in your projects:
 const Glomium = require('glomium');
 
 // Initialize a new Glomium instance with optional configuration
-const glomium = new Glomium({
+const vm = new Glomium({
   gas: {
     limit: 100000,            // Set the maximum amount of gas allowed for the execution context
     memoryByteCost: 1         // Define the gas cost per byte of memory used
@@ -34,13 +34,13 @@ const glomium = new Glomium({
 });
 
 // Set a global variable within the Duktape context
-glomium.set('hello', 'world');
+vm.set('hello', 'world');
 
 // Retrieve the value of a global variable from the Duktape context
-const world = glomium.get('hello');
+const world = vm.get('hello');
 
 // Run JavaScript code in the Duktape context
-const result = glomium.run(`
+const result = vm.run(`
   function greet(name) {
     return 'Hello, ' + name + '!';
   }
@@ -91,7 +91,7 @@ Fully resets all global variables of the VM, might be useful for VM reuse betwee
 - **Parameters**
   Doesn't take parameters, returns undefined
 
-### `setGas(config)`
+### `glomium.setGas(config)`
 
 Updates the gas configuration for the Duktape execution context associated with the current instance.
 
