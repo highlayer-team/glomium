@@ -46,7 +46,7 @@ napi_value flush_global(napi_env env,napi_callback_info info){
     duk_get_memory_functions(ctx, funcs);
     HeapConfig *heapData = (HeapConfig *)funcs->udata;
     GasData *gasData = heapData->gasConfig;
-    gasData->gas_used=0
+    gasData->gas_used = 0;
     napi_value undefined;
     napi_get_undefined(env, &undefined);
     return undefined;
@@ -101,7 +101,7 @@ napi_value create_context(napi_env env, napi_callback_info info)
 
     return externalCtx;
 }
-napi_value setGas(napi_env env, napi_callback_info info)
+napi_value set_gas(napi_env env, napi_callback_info info)
 {
     size_t argc = 2;
     napi_value args[2], config_object;
@@ -130,7 +130,7 @@ napi_value setGas(napi_env env, napi_callback_info info)
     napi_get_value_uint32(env, temp_value, &used_gas);
 
     duk_memory_functions *funcs;
-    duk_get_memory_functions(ctx, &funcs);
+    duk_get_memory_functions(ctx, funcs);
     HeapConfig *heapData = (HeapConfig *)funcs->udata;
     GasData *gasData = heapData->gasConfig;
 
