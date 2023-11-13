@@ -254,7 +254,7 @@ napi_value Init(napi_env env, napi_value exports)
     napi_set_named_property(env, exports, "flushGlobal", flushGlobal);
 
     napi_create_function(env, nullptr, NAPI_AUTO_LENGTH, set_gas, nullptr, &setGas);
-    napi_set_named_property(env, exports, "flushGlobal", setGas);
+    napi_set_named_property(env, exports, "setGas", setGas);
 
     napi_create_function(env, nullptr, NAPI_AUTO_LENGTH, set_global, nullptr, &setGlobal);
     napi_set_named_property(env, exports, "setGlobal", setGlobal);
