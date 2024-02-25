@@ -13,17 +13,23 @@
         "./duktape/src-new",
         "./"
       ],
+      "include":[
+        "./duktape/src-input/duk_hthread.h"
+      ],
       "cflags": [
+        "-m",
         "-std=c++11",
         "-Wimplicit-function-declaration",
         "-x c++"
       ],
-      "cflags_cc":["-Wimplicit-function-declaration"],
+      "flags":["-m"],
+      "cflags_cc":["-m","-Wimplicit-function-declaration"],
       "conditions": [
         ["OS=='win'", {
-          "cflags!": ["/EHs", "/EHc"],
-          "cflags_cc": ["/EHsc"],
+          "cflags!": ["-m","/EHs", "/EHc"],
+          "cflags_cc": ["-m","/EHsc"],
           "msvs_settings": {
+            "ParallelBuild":"1",
             "VCCLCompilerTool": {
               "ExceptionHandling": "1"
             }

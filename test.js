@@ -1,28 +1,41 @@
 const Glomium = require('./');
 
 // Create a new Glomium instance with custom configuration
-const glomium = new Glomium({
-    gas: {
-        limit: 1000000,            // The maximum amount of gas the execution environment can use
-        memoryByteCost: 1         // The gas cost per byte of memory used
-    }
-});
 
 // Set global variables in the Duktape context
-glomium.set('hello', 'world');
+function wait(ms) {
+  return new Promise(res => {
+    setTimeout(res,ms)
+  })
+};
 
-// Get global variables from the Duktape context
-const world = glomium.get('hello');
+(async () => {
+  const glomium = new Glomium({
+    gas: {
+      limit: 20000000,            // The maximum amount of gas the execution environment can use
+      memoryByteCost: 1         // The gas cost per byte of memory used
+    }
+  });
+  // Run some JavaScript code
+  await glomium.set("log", function log(r) {
+    console.log(r)
+  });
+  await glomium.set("wait", wait);
 
-// Run some JavaScript code
-const result = glomium.run(`
-  function greet(name) {
-    return 'Hello, ' + name + '!';
+   glomium.run(`
+(function (a,b){
+var i=0;
+ while(i<10000000){
+  i++;
+  if(i%10000==0){
+    log(i);
   }
-  greet(hello);
-`);
+ }
 
-console.log(result); // Should output 'Hello, world!'
-console.log(glomium.get("hello"))
-glomium.clear()
-console.log(glomium.get("hello"))
+  }
+  )()`).catch(e => {
+    console.log("Error happened while executing code!",e)
+  })
+
+
+})()

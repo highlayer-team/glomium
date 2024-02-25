@@ -1,3 +1,10 @@
 {
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "*.ejs": "html",
+        "*.amp": "html",
+        "xhash": "cpp",
+        "mutex": "cpp",
+        "duk_internal.h": "c"
+    }
 }

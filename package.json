@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "install": "node scripts/prebuild.js install",
-    "build:duktape:win32":"cd duktape &&C:\\Python27\\python.exe tools/configure.py --output-directory src-new --source-directory src-input --config-metadata config --option-file config/sandbox_config.yaml&&cd ..",
-    "build:win32":"npm run build:duktape:win32&&node-gyp rebuild"
+    "build:duktape:win32": "cd duktape &&C:\\Python27\\python.exe tools/configure.py --output-directory src-new --source-directory src-input --config-metadata config --option-file config/sandbox_config.yaml&&cd ..",
+    "build:win32": "npm run build:duktape:win32&&node-gyp rebuild -j max"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
   "dependencies": {
     "follow-redirects": "^1.15.3",
     "nan": "^2.18.0",
-    "node-addon-api": "^7.0.0",
+    "node-addon-api": "^7.1.0",
     "tar-fs": "^3.0.4"
   }
 }
