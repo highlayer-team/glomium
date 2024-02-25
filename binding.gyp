@@ -20,13 +20,12 @@
         "-std=c++11",
         "-Wimplicit-function-declaration",
       ],
-      "cflags_cc":["-Wimplicit-function-declaration"],
+      "cflags_cc":[],
       "conditions": [
         ["OS=='win'", {
           "cflags!": ["/EHs", "/EHc"],
           "cflags_cc": ["/EHsc"],
           "msvs_settings": {
-            "ParallelBuild":"1",
             "VCCLCompilerTool": {
               "ExceptionHandling": "1"
             }
