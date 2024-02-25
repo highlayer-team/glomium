@@ -20,6 +20,7 @@
         "-std=c++11",
         "-Wimplicit-function-declaration",
       ],
+      "defines": [ 'NAPI_DISABLE_CPP_EXCEPTIONS' ],
       "cflags_cc":[],
       "conditions": [
         ["OS=='win'", {
