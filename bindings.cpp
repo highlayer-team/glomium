@@ -12,6 +12,7 @@
 #include "json.hpp"
 #include <chrono>
 #include <mutex>
+#include <thread>
 #include <queue>
 #include <setjmp.h>
 
