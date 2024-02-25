@@ -17,17 +17,14 @@
         "./duktape/src-input/duk_hthread.h"
       ],
       "cflags": [
-        "-m",
         "-std=c++11",
         "-Wimplicit-function-declaration",
-        "-x c++"
       ],
-      "flags":["-m"],
-      "cflags_cc":["-m","-Wimplicit-function-declaration"],
+      "cflags_cc":["-Wimplicit-function-declaration"],
       "conditions": [
         ["OS=='win'", {
-          "cflags!": ["-m","/EHs", "/EHc"],
-          "cflags_cc": ["-m","/EHsc"],
+          "cflags!": ["/EHs", "/EHc"],
+          "cflags_cc": ["/EHsc"],
           "msvs_settings": {
             "ParallelBuild":"1",
             "VCCLCompilerTool": {
