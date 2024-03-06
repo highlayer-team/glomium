@@ -1,41 +1,26 @@
-const Glomium = require('./');
-
-// Create a new Glomium instance with custom configuration
-
-// Set global variables in the Duktape context
-function wait(ms) {
-  return new Promise(res => {
-    setTimeout(res,ms)
-  })
-};
+const Glomium = require("./");
 
 (async () => {
+  function wait(ms) {
+    return new Promise(res => {
+      setTimeout(res, ms)
+    })
+  };
   const glomium = new Glomium({
     gas: {
-      limit: 20000000,            // The maximum amount of gas the execution environment can use
-      memoryByteCost: 1         // The gas cost per byte of memory used
+      limit: 20000000,       
+      memoryByteCost: 1        
     }
   });
-  // Run some JavaScript code
-  await glomium.set("log", function log(r) {
-    console.log(r)
-  });
+  setInterval(() => console.log(1), 100)
+  await glomium.set("console",console);
+
   await glomium.set("wait", wait);
 
-   glomium.run(`
-(function (a,b){
-var i=0;
- while(i<10000000){
-  i++;
-  if(i%10000==0){
-    log(i);
-  }
- }
-
-  }
-  )()`).catch(e => {
-    console.log("Error happened while executing code!",e)
-  })
-
+  glomium.run(`
+  console.log("Hello")
+  wait(1000)
+  console.log("World")
+  `)
 
 })()
