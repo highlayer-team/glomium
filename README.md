@@ -170,11 +170,12 @@ This will produce required `build` directory.
 
 ## Support the developer
 
-Glomium is maintained by the team at [Rareweave](https://rareweave.store), best way to support us is to go straight to our app and buy some NFTs
+Best way to support Glomium is to do contribution!
+If you want to support Glomium financially, it would be better if you support [Duktape](duktape.org), ensuring author of Glomium won't need to maintain its fork 😄
 
 ## Contributions
 
-Contributions to Glomium are welcomed as it is a foundational component of the Glome smart contract engine. Feel free to fork, submit pull requests, or raise issues.
+Contributions to Glomium are welcome! Feel free to do pull requests, improving performance, security audits, open issues, etc.
 
 ## License
 
