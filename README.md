@@ -38,7 +38,7 @@ Have a look at quick comparison table below:
 | [vm2](https://github.com/patriksimek/vm2)                                    |        |               |                   |          | Fast, V8+JIT   |       ✅       |        ✅         |                | Node's ES version |
 | [isolated-vm](https://github.com/laverdet/isolated-vm)                       |   ✅  |       ✅     | 50/50, timeouts supported |    ✅    | Fast, V8+JIT  |                |        ✅         |                | Node's ES version |
 | [quickjs-emscripten](https://github.com/justjake/quickjs-emscripten)         |   ✅  |       ✅     | 50/50, timeouts supported |    ✅    | Slow, QuickJS+WASM  |        ✅        |                 | 50/50, can't be achieved without detereministic operation/memory limits  | ES2023 |
-| glomium                                                                      | ✅    |      ✅      |       ✅         |    ✅ | Medium, Duktape running natively |  |                    |  ✅         | ES5       | 
+| glomium                                                                      | ✅    |      ✅      |       ✅         |    ✅ | Medium, Duktape running natively |                           |                    |  ✅         | ES5       |
 
 
 ## Installation
