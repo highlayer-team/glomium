@@ -12,6 +12,35 @@ Glomium utilizes [Duktape](https://duktape.org) as its javascript engine.
 
 Note: Only ES5 is supported, so use babel to transpile higher-versioned ecmascript to ES5 before executing it.
 
+## Comparison table with alternatives
+
+Glomium is worse and better in a lot of aspects compared to alternatives. 
+
+Since we don't make money just from you using Glomium, we absolutely are not trying to get you to use Glomium.
+
+Make sure to look at alternative solutions before choosing your engine.
+
+Have a look at quick comparison table below:
+
+* **Secure**: Obstructs access to unsafe nodejs capabilities
+* **Memory Limits**: Possible to set memory limits / safe against heap overflow DoS attacks
+* **Operation Limits**: Possible to set limit on amount of operations code can execute, providing security from infinite loops
+* **Isolated**: Is garbage collection, heap, etc isolated from application
+* **Speed**: Average performance on benchmarks for common usecases
+* **Module Support**: Is `require` supported out of the box
+* **Inspector Support**: Chrome DevTools supported
+* **Full determinism**: Built with determinism in mind, has async function de-asyncifying, predictable exits due to memory/operation count limits (gas), deterministic runtime
+* **ECMAScript version**: Version of ecmascript that the runtime natively supports (without babel and similar tools)
+| Module                                                                       | Secure | Memory Limits | Operation Limits  | Isolated | Speed, engine | Module Support | Inspector Support | Full determinism | ECMAScript version |
+| ---------------------------------------------------------------------------- | :----: | :-----------: | :--------------: | :------: | :-----------: | :------------: | :---------------: | :---------------: | :---------------: |
+| [vm](https://nodejs.org/api/vm.html)                                         |        |               |                   |          |  Fast, V8+JIT  |       ✅       |        ✅         |                 | Node's ES version |
+| [worker_threads](https://nodejs.org/api/worker_threads.html)                 |        |               |                   |    ✅    | Fast, V8+JIT  |       ✅       |        ✅        |               | Node's ES version |
+| [vm2](https://github.com/patriksimek/vm2)                                    |        |               |                   |          | Fast, V8+JIT   |       ✅       |        ✅         |                | Node's ES version |
+| [isolated-vm](https://github.com/laverdet/isolated-vm)                       |   ✅  |       ✅     | 50/50, timeouts supported |    ✅    | Fast, V8+JIT  |                |        ✅         |                | Node's ES version |
+| [quickjs-emscripten](https://github.com/justjake/quickjs-emscripten)         |   ✅  |       ✅     | 50/50, timeouts supported |    ✅    | Slow, QuickJS+WASM  |        ✅        |                 | 50/50, can't be achieved without detereministic operation/memory limits  | ES2023 |
+| glomium                                                                      | ✅    |      ✅      |       ✅         |    ✅ | Medium, Duktape running natively |  |                    |  ✅         | ES5       | 
+
+
 ## Installation
 
 To install Glomium to your Node.js project, just pull it off npm:
