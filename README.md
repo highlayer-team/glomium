@@ -31,14 +31,15 @@ Have a look at quick comparison table below:
 * **Inspector Support**: Chrome DevTools supported
 * **Full determinism**: Built with determinism in mind, has async function de-asyncifying, predictable exits due to memory/operation count limits (gas), deterministic runtime
 * **ECMAScript version**: Version of ecmascript that the runtime natively supports (without babel and similar tools)
-| Module                                                                       | Secure | Memory Limits | Operation Limits  | Isolated | Speed, engine | Module Support | Inspector Support | Full determinism | ECMAScript version |
-| ---------------------------------------------------------------------------- | :----: | :-----------: | :--------------: | :------: | :-----------: | :------------: | :---------------: | :---------------: | :---------------: |
-| [vm](https://nodejs.org/api/vm.html)                                         |        |               |                   |          |  Fast, V8+JIT  |       ✅       |        ✅         |                 | Node's ES version |
-| [worker_threads](https://nodejs.org/api/worker_threads.html)                 |        |               |                   |    ✅    | Fast, V8+JIT  |       ✅       |        ✅        |               | Node's ES version |
-| [vm2](https://github.com/patriksimek/vm2)                                    |        |               |                   |          | Fast, V8+JIT   |       ✅       |        ✅         |                | Node's ES version |
-| [isolated-vm](https://github.com/laverdet/isolated-vm)                       |   ✅  |       ✅     | 50/50, timeouts supported |    ✅    | Fast, V8+JIT  |                |        ✅         |                | Node's ES version |
-| [quickjs-emscripten](https://github.com/justjake/quickjs-emscripten)         |   ✅  |       ✅     | 50/50, timeouts supported |    ✅    | Slow, QuickJS+WASM  |        ✅        |                 | 50/50, can't be achieved without detereministic operation/memory limits  | ES2023 |
-| glomium                                                                      | ✅    |      ✅      |       ✅         |    ✅ | Medium, Duktape running natively |                           |                    |  ✅         | ES5       |
+
+| Module                                                                  | Secure | Memory Limits | Operation Limits                | Isolated | Speed, engine           | Module Support | Inspector Support | Full determinism                                          | ECMAScript version |
+|-------------------------------------------------------------------------|:------:|:-------------:|:-------------------------------:|:--------:|:-----------------------:|:--------------:|:-----------------:|:---------------------------------------------------------:|:------------------:|
+| [vm](https://nodejs.org/api/vm.html)                                    |        |               |                                 |          | Fast, V8+JIT            | ✅             | ✅               |                                                           | Node's ES version  |
+| [worker_threads](https://nodejs.org/api/worker_threads.html)            |        |               |                                 | ✅       | Fast, V8+JIT            | ✅             | ✅               |                                                           | Node's ES version  |
+| [vm2](https://github.com/patriksimek/vm2)                               |        |               |                                 |          | Fast, V8+JIT            | ✅             | ✅               |                                                           | Node's ES version  |
+| [isolated-vm](https://github.com/laverdet/isolated-vm)                  | ✅     | ✅            | 50/50, timeouts supported       | ✅       | Fast, V8+JIT            |                | ✅               |                                                           | Node's ES version  |
+| [quickjs-emscripten](https://github.com/justjake/quickjs-emscripten)    | ✅     | ✅            | 50/50, timeouts supported       | ✅       | Slow, QuickJS+WASM      | ✅             |                  | 50/50, can't be achieved without deterministic operation/memory limits | ES2023            |
+| glomium                                                                 | ✅     | ✅            | ✅                              | ✅       | Medium, Duktape running natively |          |                  | ✅                                                         | ES5                |
 
 
 ## Installation
