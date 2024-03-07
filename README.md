@@ -171,7 +171,7 @@ This will produce required `build` directory.
 ## Support the developer
 
 Best way to support Glomium is to do contribution!
-If you want to support Glomium financially, it would be better if you support [Duktape](duktape.org), ensuring author of Glomium won't need to maintain its fork 😄
+If you want to support Glomium financially, it would be better if you support [Duktape](https://duktape.org), ensuring author of Glomium won't need to maintain its fork 😄
 
 ## Contributions
 
