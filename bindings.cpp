@@ -348,7 +348,7 @@ napi_value create_context(napi_env env, napi_callback_info info)
     }
     create_and_associate_thread(ctx);
     napi_value externalCtx;
-    napi_create_external(env, ctx, cleanup_context, nullptr, &externalCtx);
+    napi_create_external(env, ctx, nullptr, nullptr, &externalCtx);
 
     return externalCtx;
 }
@@ -418,7 +418,7 @@ napi_value swap_contexts(napi_env env, napi_callback_info info)
     contextFunctionMap.erase(oldCtx);
 
     napi_value newExternalCtx;
-    napi_create_external(env, newCtx, cleanup_context, nullptr, &newExternalCtx);
+    napi_create_external(env, newCtx, nullptr, nullptr, &newExternalCtx);
 
     return newExternalCtx;
 }
