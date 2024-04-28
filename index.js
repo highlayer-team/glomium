@@ -57,7 +57,12 @@ class Glomium {
             "callFinished": () => {
                 // console.log("Node got:",msg)
                 const prom = this.callbackMap.get(msg.callId)
-                prom.resolve(msg.result);
+                if(!msg.result&&msg.error){
+                    prom.reject(msg.error)
+                }else{
+                    prom.resolve(msg.result);
+                }
+               
                 this.callbackMap.delete(msg.callId)
             },
             "fatalError": () => {
@@ -92,6 +97,7 @@ class Glomium {
                         or = (({
                             "function": () => {
                                 return async (...args) => {
+
                                     return await engineClass.__passToEngine({ event: "callFunctionByPointer", pointer: o.__engineInternalProperties.heapptr, args:args})
                                
                             }

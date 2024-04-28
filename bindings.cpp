@@ -179,6 +179,21 @@ void create_and_associate_thread(duk_context *ctx)
                             emit_event_callback(ctx, json{{"event", "callFinished"}, {"callId", msg["callId"]}, {"result", result}}.dump());
                         }
                         duk_pop(ctx);
+                    } else if(eventName=="callFunctionByPointer"){
+                        duk_push_heapptr(ctx, reinterpret_cast<void *>(msg["pointer"].get<uintptr_t>()));
+                         for (const auto arg : msg["args"])
+                             {
+                               json_to_duk(ctx,arg.dump());
+                            }
+                            if (duk_pcall(ctx,msg["args"].size()) != 0)
+                                 {
+                             emit_event_callback(ctx, json{{"event", "callFinished"}, {"callId", msg["callId"]}, {"error", duk_safe_to_string(ctx, -1)}}.dump());
+                            }else{
+
+                            emit_event_callback(ctx, json{{"event", "callFinished"}, {"callId", msg["callId"]}, {"result", duk_to_json(ctx,-1)}}.dump());
+                            duk_pop(ctx);
+                        
+                            }
                     }
                     else if(eventName == "flushContext")
                     {

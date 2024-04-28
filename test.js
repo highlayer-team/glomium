@@ -17,10 +17,11 @@ const Glomium = require("./");
 
   await glomium.set("wait", wait);
 
-  glomium.run(`
-  console.log("Hello")
-  wait(1000)
-  console.log("World")
+  glomium.run(`function test(value){
+    console.log("calling "+value.name)
+    throw "test"
+  }
   `)
-
+console.log(await glomium.get("test").then(test=>test({name:"works"})).catch(e=>console.error(e))
+)
 })()
