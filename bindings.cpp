@@ -212,8 +212,8 @@ void create_and_associate_thread(duk_context *ctx)
                         duk_context *newCtx = duk_create_heap(duk_gas_respecting_alloc_function, duk_gas_respecting_realloc_function, duk_gas_respecting_free_function, newHeapConfig, (duk_fatal_function)fatal_handler);
                         newHeapConfig->ctx = (void *)newCtx;
 
-                        duk_push_bare_object(newCtx);
-                        duk_set_global_object(newCtx);
+                        // duk_push_bare_object(newCtx);
+                        // duk_set_global_object(newCtx);
 
                         newGasData->gas_limit = newGasLimit;
                         newGasData->mem_cost_per_byte = newMemCostPerByte;
@@ -351,8 +351,8 @@ napi_value create_context(napi_env env, napi_callback_info info)
         return nullptr;
     }
     heapConfig->ctx = (void *)ctx;
-    duk_push_bare_object(ctx);
-    duk_set_global_object(ctx);
+    // duk_push_bare_object(ctx);
+    // duk_set_global_object(ctx);
     gasData->gas_limit = gas_limit;
     gasData->mem_cost_per_byte = mem_cost_per_byte;
     gasData->gas_used = 0; // we don't really want to count warmup as a used gas as it's not dependent on usercode
