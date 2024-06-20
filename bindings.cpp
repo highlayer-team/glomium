@@ -131,8 +131,8 @@ duk_context *create_bare_context(GasData *gasData)
     duk_context *ctx = duk_create_heap(duk_gas_respecting_alloc_function, duk_gas_respecting_realloc_function, duk_gas_respecting_free_function, heapConfig, (duk_fatal_function)fatal_handler);
     heapConfig->ctx = (void *)ctx;
     heapConfig->gasConfig = gasData;
-    duk_push_bare_object(ctx);
-    duk_set_global_object(ctx);
+    // duk_push_bare_object(ctx); // Uncomment to remove such unneccessary globals like "Object", "Array", "Number", "String", etc
+    // duk_set_global_object(ctx);
     return ctx;
 }
 
