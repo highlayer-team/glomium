@@ -462,13 +462,13 @@ napi_value notify_waiting_execdata(napi_env env, napi_callback_info info)
     size_t argc = 0;
     napi_get_cb_info(env, info, &argc, nullptr, nullptr, nullptr);
 
-    if (argc < 2)
+    if (argc < 3)
     {
-        napi_throw_type_error(env, nullptr, "Expected two arguments: execution data pointer and response string");
+        napi_throw_type_error(env, nullptr, "Expected three arguments: execution data pointer, response string and errored option.");
         return nullptr;
     }
 
-    napi_value args[2];
+    napi_value args[3];
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     int64_t ptrAsInt;
@@ -479,11 +479,15 @@ napi_value notify_waiting_execdata(napi_env env, napi_callback_info info)
     napi_get_value_string_utf8(env, args[1], nullptr, 0, &strSize);
     std::string response(strSize, '\0');
     napi_get_value_string_utf8(env, args[1], response.data(), response.size() + 1, &strSize);
+    bool errored;
+    napi_get_value_bool(env, args[2], &errored);
+
 
     {
         std::lock_guard<std::mutex> lock(executionData->mtx);
         executionData->response = std::move(response);
         executionData->ready = true;
+        executionData->errored = errored;
         executionData->cv.notify_one();
     }
 

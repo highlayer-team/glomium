@@ -24,6 +24,7 @@ struct NapiFunctionExecutionData
     std::mutex mtx;
     bool ready = false;
     std::string response;
+    bool errored = false;
 };
 
 duk_ret_t napi_function_wrapper(duk_context *ctx);

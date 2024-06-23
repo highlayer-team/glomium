@@ -17,11 +17,15 @@ const Glomium = require("./");
 
   await glomium.set("wait", wait);
 
+  async function errorProne(){
+    throw new Error("uhh")
+  }
+  glomium.set("errorProne",errorProne)
   glomium.run(`function test(value){
     console.log("calling "+value.name)
-    throw "test"
+    errorProne()
   }
   `)
-console.log(await glomium.get("test").then(test=>test({name:"works"})).catch(e=>console.error(e))
+console.log(await glomium.get("test").then(test=>test({name:"works"})).catch(e=>console.error("ERROR",e))
 )
 })()

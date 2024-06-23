@@ -51,8 +51,13 @@ class Glomium {
         let event = ({
             "functionCall":async  () => {
                 let execDataPointer=msg.executionDataPtr
-                let res = await this.functionRegistry[msg.id](...msg.args)
-                duktapeBindings.__notifyWaitingExecData(execDataPointer,this.__nodeValueToJson(res))
+                let res;
+                try{
+                res = await this.functionRegistry[msg.id](...msg.args)
+                duktapeBindings.__notifyWaitingExecData(execDataPointer,this.__nodeValueToJson(res),false)
+                }catch(e){
+                duktapeBindings.__notifyWaitingExecData(execDataPointer,e.message,true)
+                }
             },
             "callFinished": () => {
                 // console.log("Node got:",msg)

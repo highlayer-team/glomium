@@ -162,7 +162,7 @@ duk_ret_t napi_function_wrapper(duk_context *ctx)
 
     for (int i = 0; i < argCount; ++i)
     {
-        // Convert Duktape value to JSON and add to JSON array
+
         argsJson.push_back(duk_to_json(ctx, i));
     }
     auto executionData = std::make_unique<NapiFunctionExecutionData>();
@@ -174,19 +174,21 @@ duk_ret_t napi_function_wrapper(duk_context *ctx)
         {"event", "functionCall"},
         {"id", funcId},
         {"args", argsJson},
-        {"executionDataPtr", ptrAsInt} // Pass the pointer as an integer
+        {"executionDataPtr", ptrAsInt}
     };
 
     emit_event_callback(ctx, callInfo.dump());
 
-    // Lock the thread and wait for the response
     {
         std::unique_lock<std::mutex> lock(executionData->mtx);
         executionData->cv.wait(lock, [&executionData]
                                { return executionData->ready; });
     }
 
-    // Process the response (assuming it's been set to threadData[ctx].response)
+    if(executionData->errored){
+        (void) duk_error(ctx, DUK_ERR_ERROR, "%s", executionData->response.c_str());
+    }
+
     json_to_duk(ctx, executionData->response);
 
     executionData->ready = false;
